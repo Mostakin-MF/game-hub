@@ -1,6 +1,8 @@
+import { Key, ReactNode } from 'react';
 import type { Platform } from './Platform';
 
 export interface Game {
+  rating: ReactNode;
   id: number;
   name: string;
   slug: string;
@@ -8,7 +10,9 @@ export interface Game {
   background_image: string;
   parent_platforms: { platform: Platform }[];
   metacritic: number;
-  genres: { name: string; slug: string }[];
+  genres: {
+    [x: string]: Key | null | undefined; name: string; slug: string
+  }[];
   publishers: { name: string }[];
   website: string;
   rating_top: number;

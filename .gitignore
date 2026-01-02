@@ -1,3 +1,5 @@
+.next/
+
 # Logs
 logs
 *.log
@@ -26,3 +28,7 @@ dist-ssr
 # System
 .gemini
 .next
+
+
+.env
+.env.local
