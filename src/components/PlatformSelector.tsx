@@ -1,35 +1,27 @@
-import { Box } from '@chakra-ui/react';
 import { usePlatforms } from '../hooks/usePlatforms';
+import { useGameQueryStore } from '../context/GameQueryContext';
 
-interface PlatformSelectorProps {
-  onSelectPlatform: (platformId: number | null) => void;
-  selectedPlatformId: number | null;
-}
-
-export default function PlatformSelector({
-  onSelectPlatform,
-  selectedPlatformId,
-}: PlatformSelectorProps) {
+export default function PlatformSelector() {
+  const { gameQuery, setPlatformId } = useGameQueryStore();
   const { platforms, error, isLoading } = usePlatforms();
 
-  if (error) return <div>Error: {error}</div>;
-  if (isLoading) return <div>Loading platforms...</div>;
+  if (isLoading) return null;
+  if (error) return null;
 
   return (
-    <Box>
-      <select
-        value={selectedPlatformId ?? ''}
-        onChange={(e) =>
-          onSelectPlatform(e.target.value === '' ? null : Number(e.target.value))
-        }
-      >
-        <option value="">All Platforms</option>
-        {platforms.map((platform) => (
-          <option key={platform.id} value={platform.id}>
-            {platform.name}
-          </option>
-        ))}
-      </select>
-    </Box>
+    <select
+      value={gameQuery.platform ?? ''}
+      onChange={(e) =>
+        setPlatformId(e.target.value === '' ? -1 : Number(e.target.value)) // -1 or null? The type says number | null. Let's use null for empty.
+      }
+      className="bg-gray-700 text-white p-2 rounded cursor-pointer hover:bg-gray-600 outline-none"
+    >
+      <option value="">All Platforms</option>
+      {platforms.map((platform) => (
+        <option key={platform.id} value={platform.id} className="bg-gray-800">
+          {platform.name}
+        </option>
+      ))}
+    </select>
   );
 }

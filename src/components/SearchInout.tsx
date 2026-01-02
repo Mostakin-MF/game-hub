@@ -1,4 +1,5 @@
-import { Box } from '@chakra-ui/react';
+'use client';
+
 import { useRef } from 'react';
 import { BsSearch } from 'react-icons/bs';
 
@@ -16,14 +17,16 @@ export default function SearchInput({ onSearch }: SearchInputProps) {
   };
 
   return (
-    <Box w="100%" display="flex" alignItems="center">
-      <BsSearch style={{ marginRight: 8 }} />
-      <input
-        ref={ref}
-        placeholder="Search games..."
-        onChange={handleSearch}
-        style={{ flex: 1, padding: '6px 8px', borderRadius: 4 }}
-      />
-    </Box>
+    <form onSubmit={(e) => e.preventDefault()} className="w-full relative">
+      <div className="relative">
+        <BsSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500" />
+        <input
+          ref={ref}
+          placeholder="Search games..."
+          onChange={handleSearch}
+          className="w-full bg-gray-100 text-gray-800 pl-10 pr-4 py-2 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+    </form>
   );
 }

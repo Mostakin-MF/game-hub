@@ -1,12 +1,11 @@
-import { Box, Skeleton, SkeletonText } from '@chakra-ui/react';
-
 export default function GameCardSkeleton() {
   return (
-    <Box borderRadius={8} overflow="hidden" bg="gray.700">
-      <Skeleton height="200px" />
-      <Box p={4}>
-        <SkeletonText mt={2} noOfLines={2} gap={4} />
-      </Box>
-    </Box>
+    <div className="bg-gray-800 rounded-lg overflow-hidden animate-pulse mb-6">
+      <div className="h-48 bg-gray-700 w-full" />
+      <div className="p-4">
+        <div className="h-4 bg-gray-700 rounded w-3/4 mb-2" />
+        <div className="h-4 bg-gray-700 rounded w-1/2" />
+      </div>
+    </div>
   );
 }

@@ -1,9 +1,4 @@
-import { Box } from '@chakra-ui/react';
-
-interface SortSelectorProps {
-  onSelectSortOrder: (sortOrder: string) => void;
-  sortOrder: string;
-}
+import { useGameQueryStore } from '../context/GameQueryContext';
 
 const sortOptions = [
   { label: 'Relevance', value: '' },
@@ -17,22 +12,20 @@ const sortOptions = [
   { label: 'Rating (Lowest)', value: 'rating' },
 ];
 
-export default function SortSelector({
-  onSelectSortOrder,
-  sortOrder,
-}: SortSelectorProps) {
+export default function SortSelector() {
+  const { gameQuery, setSortOrder } = useGameQueryStore();
+
   return (
-    <Box>
-      <select
-        value={sortOrder}
-        onChange={(e) => onSelectSortOrder(e.target.value)}
-      >
-        {sortOptions.map((option) => (
-          <option key={option.value} value={option.value}>
-            {option.label}
-          </option>
-        ))}
-      </select>
-    </Box>
+    <select
+      value={gameQuery.sortOrder}
+      onChange={(e) => setSortOrder(e.target.value)}
+      className="bg-gray-700 text-white p-2 rounded cursor-pointer hover:bg-gray-600 outline-none"
+    >
+      {sortOptions.map((option) => (
+        <option key={option.value} value={option.value} className="bg-gray-800">
+          {option.label}
+        </option>
+      ))}
+    </select>
   );
 }

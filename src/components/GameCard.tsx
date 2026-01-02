@@ -1,7 +1,6 @@
-import { Box, Heading, Image, HStack } from '@chakra-ui/react';
-import type { Game } from '../entities/Game';
 import { getCroppedImageUrl } from '../services/image-url';
 import CriticScore from './CriticScore';
+import type { Game } from '../entities/Game';
 
 interface GameCardProps {
   game: Game;
@@ -9,21 +8,20 @@ interface GameCardProps {
 
 export default function GameCard({ game }: GameCardProps) {
   return (
-    <Box borderRadius={8} overflow="hidden" bg="gray.700">
-      <Image
+    <div className="bg-gray-800 rounded-lg overflow-hidden h-full flex flex-col">
+      <img
         src={getCroppedImageUrl(game.background_image)}
         alt={game.name}
-        height="200px"
-        objectFit="cover"
+        className="w-full h-48 object-cover"
       />
-      <Box p={4}>
-        <Heading size="sm" mb={2}>
+      <div className="p-4 flex flex-col justify-between flex-1">
+        <h3 className="text-lg font-bold mb-2 text-white truncate" title={game.name}>
           {game.name}
-        </Heading>
-        <HStack justify="space-between">
+        </h3>
+        <div className="flex justify-between items-center mt-auto">
           {game.metacritic && <CriticScore score={game.metacritic} />}
-        </HStack>
-      </Box>
-    </Box>
+        </div>
+      </div>
+    </div>
   );
 }

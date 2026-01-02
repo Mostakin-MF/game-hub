@@ -1,17 +1,20 @@
-import { HStack, Heading } from '@chakra-ui/react';
+import Link from 'next/link';
 import SearchInput from './SearchInout';
-import ColorModeSwitch from './ColorModeSwitch';
+import { useGameQueryStore } from '../context/GameQueryContext';
 
-interface NavBarProps {
-  onSearch: (searchText: string) => void;
-}
+export default function NavBar() {
+  const { setSearchText } = useGameQueryStore();
 
-export default function NavBar({ onSearch }: NavBarProps) {
   return (
-    <HStack padding="1rem" bg="gray.800" color="white" justify="space-between">
-      <Heading size="lg" ml={4}>GameHub</Heading>
-      <SearchInput onSearch={onSearch} />
-      <ColorModeSwitch />
-    </HStack>
+    <div className="flex items-center justify-between p-4 bg-gray-800 text-white">
+      <div className="flex items-center gap-6">
+        <Link href="/" className="text-2xl font-bold ml-4">GameHub</Link>
+        <Link href="/profiles" className="hover:text-gray-300">Profiles</Link>
+        <Link href="/leaderboard" className="hover:text-gray-300">Leaderboard</Link>
+      </div>
+      <div className="w-[450px]">
+        <SearchInput onSearch={setSearchText} />
+      </div>
+    </div>
   );
 }

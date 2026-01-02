@@ -1,5 +1,4 @@
-import { Box } from '@chakra-ui/react';
-import {type ReactNode } from 'react';
+import { type ReactNode } from 'react';
 
 interface GameCardContainerProps {
   children: ReactNode;
@@ -7,8 +6,8 @@ interface GameCardContainerProps {
 
 export default function GameCardContainer({ children }: GameCardContainerProps) {
   return (
-    <Box borderRadius={8} overflow="hidden" _hover={{ transform: 'scale(1.05)', transition: '0.2s' }}>
+    <div className="rounded-lg overflow-hidden transition-transform duration-200 hover:scale-105">
       {children}
-    </Box>
+    </div>
   );
 }

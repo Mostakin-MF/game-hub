@@ -1,190 +1,74 @@
 # GameHub – Video Game Discovery App
 
-## Overview
-- Video game discovery app built with React 18, TypeScript, and Vite  
-- Uses RAWG API to browse, search, filter, and sort games  
-- Responsive UI with dark/light mode, genres, platforms, images, and critic scores  
-- Inspired by Mosh Hamedani’s GameHub project  
-
----
-
-## Goals
-
-- Build a production-style React frontend  
-- Integrate a real-world REST API (RAWG)  
-- Practice components, custom hooks, and state management  
-- Implement search, filter, and sort features  
-
----
+A modern, responsive video game discovery application built with **Next.js 16**, **React 19**, **TypeScript**, and **Tailwind CSS v4**. This project utilizes the [RAWG API](https://rawg.io/apidocs) to browse, search, filter, and sort a vast library of video games.
 
 ## Features
 
-- Paginated game grid with images and scores  
-- Search games by name  
-- Filter by genre and platform  
-- Sort by relevance, rating, name, or release date  
-- Dark / Light mode (Chakra UI)  
-- Loading skeletons and error handling  
-
----
+- **Game Discovery**: Browse paginated games with rich imagery and critic scores.
+- **Advanced Filtering**: Filter games by Genre and Platform.
+- **Sorting**: Sort results by relevance, release date, rating, and more.
+- **Search**: Instant search functionality to find specific titles.
+- **Player Profiles**: View user stats and recent activity with real game data.
+- **Leaderboard**: Global leaderboard featuring top players and their favorite games.
+- **Responsive Design**: Fully responsive UI built with Tailwind CSS.
+- **State Management**: Scalable global state management using **Context API**.
 
 ## Tech Stack
 
-### Frontend
-- React 18  
-- TypeScript  
-- Vite  
-- Chakra UI  
+- **Framework**: [Next.js 16](https://nextjs.org/) (App Router, Turbopack)
+- **Library**: [React 19](https://react.dev/)
+- **Styling**: [Tailwind CSS v4](https://tailwindcss.com/)
+- **Language**: [TypeScript](https://www.typescriptlang.org/)
+- **Data Fetching**: [Axios](https://axios-http.com/)
+- **Icons**: [React Icons](https://react-icons.github.io/react-icons/)
 
-### Data & HTTP
-- RAWG Video Games Database API  
-- Axios  
+## Getting Started
 
-### Tooling
-- Node.js + npm  
-- Environment variables via Vite  
+### Prerequisites
 
----
+- Node.js 18+ installed on your machine.
+- An API key from [RAWG.io](https://rawg.io/apidocs).
 
-## RAWG API
+### Installation
 
-- Large game database (350k+ games, 50+ platforms)  
-- REST API with paginated responses  
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Mostakin-MF/game-hub.git
+   cd game-hub
+   ```
 
-### Endpoints Used
-- `GET /games` – games list with filters and search  
-- `GET /genres` – game genres  
-- `GET /platforms/lists/parents` – parent platforms  
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-### API Client
-- Axios instance with base URL and API key from env  
+3. Configure Environment Variables:
+   - Create a `.env` file in the root directory.
+   - Add your RAWG API key:
+     ```env
+     NEXT_PUBLIC_RAWG_API_KEY=your_api_key_here
+     ```
 
----
+4. Run the development server:
+   ```bash
+   npm run dev
+   ```
+
+5. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ## Project Structure
 
-- `components/` – UI components  
-- `hooks/` – custom data-fetching hooks  
-- `services/` – API and utilities  
-- `entities/` – TypeScript models  
-- `assets/` – images and static files  
+- `src/app`: Next.js App Router pages and layouts.
+- `src/components`: Reusable UI components.
+- `src/context`: React Context definitions (e.g., `GameQueryContext`).
+- `src/hooks`: Custom hooks for data fetching (`useGames`, `useGenres`, etc.).
+- `src/services`: API client configuration and utilities.
+- `src/entities`: TypeScript interfaces/types.
 
----
+## State Management
 
-## Data Models
+The application uses the **Context API** to manage the global `GameQuery` state, eliminating prop drilling. The `GameQueryContext` provides the current filters (genre, platform, sort order, search text) to any component that needs them, such as `NavBar`, `GameGrid`, and selectors.
 
-### Game
-- id, name, background image  
-- platforms, rating, metacritic score  
+## License
 
-### Genre
-- id, name, background image, slug  
-
-### Platform
-- id, name, slug  
-
----
-
-## Application State
-
-- Central `GameQuery` state:
-  - genre  
-  - platform  
-  - sort order  
-  - search text  
-- Passed to `useGames` to build API queries  
-
----
-
-## Custom Hooks
-
-- `useGames` – fetch games with filters and sorting  
-- `useGenres` – fetch genres  
-- `usePlatforms` – fetch platforms  
-- Uses loading, error states, and request cancellation  
-
----
-
-## Main Components
-
-- `App` – layout and global state  
-- `NavBar` – search and theme switch  
-- `GenreList` – genre filter  
-- `PlatformSelector` – platform filter  
-- `SortSelector` – sorting options  
-- `GameGrid` – displays games  
-
----
-
-## Game UI
-
-- Game cards with image, title, and critic score  
-- Skeleton loaders while fetching data  
-- Responsive grid layout  
-
----
-
-## Services & Utilities
-
-- API client with base URL and API key  
-- Image utility for cropped thumbnails  
-
----
-
-## Theming
-
-- Chakra UI for layout and components  
-- Global dark/light mode support  
-
----
-
-## App Flow
-
-- Initial load fetches games  
-- Filters update query state  
-- Query changes trigger refetch  
-- UI updates with loading and results  
-
----
-
-## Possible Extensions
-
-- Game details page  
-- Infinite scroll or load more  
-- Advanced state management (React Query/Zustand)  
-- Favorites and authentication  
-
----
-
-## Summary
-
-- Modern React + TypeScript project  
-- Real-world REST API integration  
-- Clean architecture with custom hooks  
-- Common UX patterns: search, filter, sort  
-
-## React + TypeScript + Vite (Key Points)
-
-- Minimal template for React with Vite
-- Fast development with **HMR (Hot Module Replacement)**
-- Two official Vite plugins:
-  - `@vitejs/plugin-react` – uses Babel for Fast Refresh
-  - `@vitejs/plugin-react-swc` – uses SWC for faster builds
-
-## React Compiler
-
-- Not enabled by default due to dev/build performance impact
-- Can be added manually if needed
-
-## ESLint (Production Recommendation)
-
-- Enable **type-aware ESLint rules** for better code safety
-- Use:
-  - `recommendedTypeChecked` (balanced)
-  - `strictTypeChecked` (stricter)
-  - `stylisticTypeChecked` (style-focused)
-
-## React ESLint Plugins (Optional)
-
-- `eslint-plugin-react-x` – React-specific TypeScript linting
-- `eslint-plugin-react-dom` – React DOM best practices
+This project is open-source and available under the MIT License.
