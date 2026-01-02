@@ -6,7 +6,7 @@ interface GameCardContainerProps {
 
 export default function GameCardContainer({ children }: GameCardContainerProps) {
   return (
-    <div className="rounded-lg overflow-hidden transition-transform duration-200 hover:scale-105">
+    <div className="rounded-lg transition-transform duration-200 hover:scale-105 relative hover:z-30">
       {children}
     </div>
   );

@@ -7,14 +7,17 @@ interface GameCardProps {
   game: Game;
 }
 
+
+import StarRating from './StarRating';
+
 export default function GameCard({ game }: GameCardProps) {
   return (
-    <div className="group bg-gray-800 rounded-lg overflow-hidden h-full flex flex-col relative transition-transform duration-300 hover:scale-105 hover:z-10 shadow-lg hover:shadow-2xl">
+    <div className="group bg-gray-800 rounded-lg group-hover:rounded-b-none h-full flex flex-col relative transition-transform duration-300 shadow-lg hover:shadow-2xl">
       <Link href={`/games/${game.slug}`}>
         <img
           src={getCroppedImageUrl(game.background_image)}
           alt={game.name}
-          className="w-full h-48 object-cover"
+          className="w-full h-48 object-cover rounded-t-lg"
         />
         <div className="p-4 flex flex-col justify-between flex-1">
           <h3 className="text-lg font-bold mb-2 text-white truncate" title={game.name}>
@@ -34,26 +37,20 @@ export default function GameCard({ game }: GameCardProps) {
           </div>
 
           {/* Hover Details */}
-          <div className="h-0 overflow-hidden group-hover:h-auto transition-all duration-300 opacity-0 group-hover:opacity-100">
-            <div className="pt-2 border-t border-gray-700 mt-2">
-               <div className="flex justify-between text-sm text-gray-400 mb-1">
-                 <span>Rating:</span>
-                 <span className="text-white">{game.rating_top}/5</span>
-               </div>
-               {/* Genres would acturally require fetching if not in list, but usually list has them. 
-                   Wait, Game entity update for list didn't include genres in previous verify. 
-                   Let's check if the fetched list of games provides genres. It usually does. 
-                   Assuming it does based on RAWG API for lists. */}
-               {game.genres && (
-                  <div className="text-xs text-gray-500 mb-3">
-                    {game.genres.map(g => g.name).join(', ')}
-                  </div>
-               )}
-               
-               <button className="w-full py-2 bg-gray-700 hover:bg-gray-600 rounded text-center text-sm font-bold transition-colors">
-                 View Details
-               </button>
+          <div className="absolute top-full left-0 w-full bg-gray-800 p-4 rounded-b-lg shadow-xl z-20 hidden group-hover:block">
+            <div className="flex justify-between items-center text-sm text-gray-400 mb-2">
+              <span>Rating:</span>
+              <StarRating rating={game.rating_top} />
             </div>
+            {game.genres && (
+               <div className="text-xs text-gray-500 mb-3">
+                 {game.genres.map(g => g.name).join(', ')}
+               </div>
+            )}
+            
+            <button className="w-full py-2 bg-gray-700 hover:bg-gray-600 rounded text-center text-sm font-bold transition-colors">
+              View Details
+            </button>
           </div>
         </div>
       </Link>
